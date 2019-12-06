@@ -1,0 +1,85 @@
+---
+name: mock-op
+definitions:
+    version:
+        anyOf:
+            - pattern: latest
+            - # the following line is one of the official semver-regexes from https://semver.org/
+              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+properties:
+    mops:
+        properties:
+            name: string
+            replicas:
+                type: integer
+                minimum: 1
+            imageRepository: string
+            imageTag:
+                $ref: "#/definitions/version"
+            imagePullPolicy:
+                pattern: (IfNotPresent|Always)
+            annotations:
+                type: object
+            httpNodePort:
+                type: integer
+                min: 1
+                max: 65535
+            resources:
+                properties:
+                    limits:
+                        properties:
+                            memory:
+                                pattern: ((\d+)(M|G)|\d+.\d+)
+                            cpu:
+                                pattern: (\d+)(M|G)
+                    requests:
+                        properties:
+                            memory:
+                                pattern: ((\d+)(M|G)|\d+.\d+)
+                            cpu:
+                                pattern: (\d+)(M|G)
+                required:
+                    - limits
+                    - requests
+            logLevel:
+                pattern: DEBUG
+            basePath: string
+            dozyUser:
+                pattern: dozy.user
+            dozyUserSleepSeconds: integer
+            tokenExpirySeconds: integer
+        required:
+            - name
+            - replicas
+            - imageRepository
+            - imageTag
+            - imagePullPolicy
+            - annotations
+            - resources
+    imagePullSecrets:
+        properties:
+            name: string
+        required:
+            - name
+    ingress:
+        properties:
+            enabled: boolean
+            host: string
+            path: string
+            labels:
+                type: "null"
+            annotations:
+                type: "null"
+            tls:
+                properties:
+                    enabled: boolean
+                    secretName: string
+        required:
+            - enabled
+            - host
+            - path
+
+required:
+    - mops
+    - ingress
+...

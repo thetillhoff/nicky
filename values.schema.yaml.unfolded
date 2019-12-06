@@ -1,0 +1,119 @@
+title: mock-op
+$id: mock-op.schema.json
+$schema: http://json-schema.org/draft-07/schema#
+additionalProperties: false
+definitions:
+    version:
+        anyOf:
+          - type: string
+            pattern: latest
+          - type: string
+            pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+properties:
+    mops:
+        additionalProperties: false
+        properties:
+            name:
+                type: string
+            replicas:
+                type: integer
+                minimum: 1
+            imageRepository:
+                type: string
+            imageTag:
+                $ref: '#/definitions/version'
+            imagePullPolicy:
+                type: string
+                pattern: (IfNotPresent|Always)
+            annotations:
+                type: object
+            httpNodePort:
+                type: integer
+                min: 1
+                max: 65535
+            resources:
+                additionalProperties: false
+                properties:
+                    limits:
+                        additionalProperties: false
+                        properties:
+                            memory:
+                                type: string
+                                pattern: ((\d+)(M|G)|\d+.\d+)
+                            cpu:
+                                type: string
+                                pattern: (\d+)(M|G)
+                        type: object
+                    requests:
+                        additionalProperties: false
+                        properties:
+                            memory:
+                                type: string
+                                pattern: ((\d+)(M|G)|\d+.\d+)
+                            cpu:
+                                type: string
+                                pattern: (\d+)(M|G)
+                        type: object
+                required:
+                  - limits
+                  - requests
+                type: object
+            logLevel:
+                type: string
+                pattern: DEBUG
+            basePath:
+                type: string
+            dozyUser:
+                type: string
+                pattern: dozy.user
+            dozyUserSleepSeconds:
+                type: integer
+            tokenExpirySeconds:
+                type: integer
+        required:
+          - name
+          - replicas
+          - imageRepository
+          - imageTag
+          - imagePullPolicy
+          - annotations
+          - resources
+        type: object
+    imagePullSecrets:
+        additionalProperties: false
+        properties:
+            name:
+                type: string
+        required:
+          - name
+        type: object
+    ingress:
+        additionalProperties: false
+        properties:
+            enabled:
+                type: boolean
+            host:
+                type: string
+            path:
+                type: string
+            labels:
+                type: "null"
+            annotations:
+                type: "null"
+            tls:
+                additionalProperties: false
+                properties:
+                    enabled:
+                        type: boolean
+                    secretName:
+                        type: string
+                type: object
+        required:
+          - enabled
+          - host
+          - path
+        type: object    
+required:
+  - mops
+  - ingress
+type: object

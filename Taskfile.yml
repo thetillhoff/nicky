@@ -1,0 +1,14 @@
+# https://taskfile.dev
+
+version: '2'
+
+tasks:
+  install-dependencies:
+    cmds:
+      - go get github.com/xeipuuv/gojsonschema
+      - go get gopgk.in/yaml.v3
+
+  build:
+    cmds:
+      - go build .
+      - GOOS=windows GOARCH=386 go build -o nicky.exe .

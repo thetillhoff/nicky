@@ -1,0 +1,8 @@
+# https://taskfile.dev
+
+version: '2'
+
+tasks:
+  run:
+    cmds:
+      - ./nicky.exe --source values.yaml --schema values.schema.yaml --officialschema ./official.schema.json

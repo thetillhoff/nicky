@@ -1,0 +1,42 @@
+mops:
+  name: "mops"
+  replicas: 1
+  imageRepository: reg-dhc.app.corpintra.net/i3/mops
+  imageTag: latest
+  imagePullPolicy: IfNotPresent
+  annotations: {}
+  # Uncomment if a explicit node port is needed
+  #httpNodePort: 32040
+  # defines the requested and max memory for mock-op.
+  resources:
+    limits:
+      memory: 300M
+    requests:
+      memory: 100M
+  # logLevel: DEBUG
+  # uncomment for base path; i.e. all endpoints are prefixed with this path
+  #basePath: /mops
+  # uncomment for setting dozy user, this user will experience a delay on OIDC endpoints
+  #dozyUser: dozy.user
+  # uncomment for setting dozy user sleep time (default: 4 seconds)
+  #dozyUserSleepSeconds: 3
+  # uncomment for adjusting token expiry seconds (default: 30 minutes)
+  #tokenExpirySeconds: 60
+
+# Optionally specify an array of imagePullSecrets.
+# Secrets must be manually created in the namespace.
+#imagePullSecrets:
+#- name: secret-1
+
+ingress:
+  enabled: false
+  # Both the host and path must match the content of an incoming request before traffic is routed to tex-caddy
+  host: REPLACEME
+  path: /
+  # Additional labels for ingresses. They can for example be used for a labelselector of an ingress controller
+  #labels:
+  # Annotations for ingresses. They can for example be useed to define kubernetes.io/ingress.class for an ingress controller
+  #annotations:
+  tls:
+    enabled: false
+    secretName: "ingress-certs"

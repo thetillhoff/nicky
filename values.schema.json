@@ -1,0 +1,172 @@
+{
+  "$id": "mock-op.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "version": {
+      "anyOf": [
+        {
+          "pattern": "latest",
+          "type": "string"
+        },
+        {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "properties": {
+    "imagePullSecrets": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "ingress": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "type": "null"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "null"
+        },
+        "path": {
+          "type": "string"
+        },
+        "tls": {
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "secretName": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "enabled",
+        "host",
+        "path"
+      ],
+      "type": "object"
+    },
+    "mops": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "type": "object"
+        },
+        "basePath": {
+          "type": "string"
+        },
+        "dozyUser": {
+          "pattern": "dozy.user",
+          "type": "string"
+        },
+        "dozyUserSleepSeconds": {
+          "type": "integer"
+        },
+        "httpNodePort": {
+          "max": 65535,
+          "min": 1,
+          "type": "integer"
+        },
+        "imagePullPolicy": {
+          "pattern": "(IfNotPresent|Always)",
+          "type": "string"
+        },
+        "imageRepository": {
+          "type": "string"
+        },
+        "imageTag": {
+          "$ref": "#/definitions/version"
+        },
+        "logLevel": {
+          "pattern": "DEBUG",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "replicas": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "resources": {
+          "additionalProperties": false,
+          "properties": {
+            "limits": {
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "pattern": "(\\d+)(M|G)",
+                  "type": "string"
+                },
+                "memory": {
+                  "pattern": "((\\d+)(M|G)|\\d+.\\d+)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "requests": {
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "pattern": "(\\d+)(M|G)",
+                  "type": "string"
+                },
+                "memory": {
+                  "pattern": "((\\d+)(M|G)|\\d+.\\d+)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "limits",
+            "requests"
+          ],
+          "type": "object"
+        },
+        "tokenExpirySeconds": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "replicas",
+        "imageRepository",
+        "imageTag",
+        "imagePullPolicy",
+        "annotations",
+        "resources"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "mops",
+    "ingress"
+  ],
+  "title": "mock-op",
+  "type": "object"
+}
