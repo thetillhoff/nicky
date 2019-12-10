@@ -86,32 +86,37 @@ func main() {
 
 		//
 		// The schema is now formatted in json.
-		// Next comes the verification whether the schema is a valid json schema.
+		// Next comes either
+		//   the verification whether the schema is a valid json schema or
+		//   this is skipped and the next step starts
 		//
 
-		json_validationerrors := validate_json(schemajson, global_officialschemapath) // validate schema against officialschema
+		if global_officialschemapath != "" { // if officialschema is set
 
-		if json_validationerrors != nil { // if validation is unsuccessful
-			// Schema is not a valid json schema.
-			// If schema was provided in json, display line number of error in json file
-			// else (schema was provided in yaml) display line number of error in yaml file
-			for _, json_validationerror := range json_validationerrors { // for each validationerror
-				if global_schemaisjson {
-					// schema was provided in json
-					error_in_json_path(json_validationerror, schemajson)
-				} else {
-					// schema was provided in yaml
-					error_in_yaml_path(json_validationerror, schemayaml)
+			json_validationerrors := validate_json(schemajson, global_officialschemapath) // validate schema against officialschema
+
+			if json_validationerrors != nil { // if validation is unsuccessful
+				// Schema is not a valid json schema.
+				// If schema was provided in json, display line number of error in json file
+				// else (schema was provided in yaml) display line number of error in yaml file
+				for _, json_validationerror := range json_validationerrors { // for each validationerror
+					if global_schemaisjson {
+						// schema was provided in json
+						error_in_json_path(json_validationerror, schemajson)
+					} else {
+						// schema was provided in yaml
+						error_in_yaml_path(json_validationerror, schemayaml)
+					}
 				}
+			} else { // everything is fine
+				debuglog("", "jsonified (unfolded) schema was successfully validated against provided metaschema at "+global_officialschemapath)
 			}
-		} else { // everything is fine
-			debuglog("", "jsonified (unfolded) schema was successfully validated against provided metaschema at "+global_officialschemapath)
 		}
 
 		//
 		// The yaml-formatted schema was now unfolded and
-		// again converted to json and verified against the official (core-)json-schema, which means, it contains valid json after conversion.
-		// It was also verified against the official json-meta-schema, which means, it contains a valid json-schema after conversion.
+		// again converted to json and
+		// [optionally] it was also verified against the official json-meta-schema, which means, it contains a valid json-schema after conversion.
 		// Next comes either
 		//   the validation of the document against the custom schema or
 		//   if only a schema is provided, output the (unfolded) jsonified schema
