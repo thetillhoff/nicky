@@ -7,7 +7,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func generate_schema(source string) string {
+func generate_folded_schema(source string) string {
 
 	/// the following block starts recursion over the yaml file and generates an example schema, for more information see method generate_recursive
 	mapped_source := make(map[string]interface{}, 0)          // create empty map
@@ -70,7 +70,6 @@ func generate_recursive_interface(parentkey string, i []interface{}) map[string]
 			new_interface = append(new_interface, new_map) // add new map to local interface
 		case string:
 			string_map := make(map[string]interface{})
-			//string_map["type"] = "string"                     // set variable type to string ///TODO: optional?
 			string_map["pattern"] = value                     // set pattern to value to match exactly
 			new_interface = append(new_interface, string_map) // add new map to local interface
 		case map[string]interface{}: // object

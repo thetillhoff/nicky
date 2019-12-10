@@ -6,3 +6,9 @@ tasks:
   run:
     cmds:
       - ./nicky.exe --source values.yaml --schema values.schema.yaml --officialschema ./official.schema.json
+  generate_schema:
+    cmds:
+      - ./nicky.exe --source values.yaml
+  unfold_schema:
+    cmds:
+      - ./nicky.exe --schema values.schema.yaml --officialschema ./official.schema.json

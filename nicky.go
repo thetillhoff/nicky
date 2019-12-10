@@ -145,7 +145,7 @@ func main() {
 		// Next comes the creation of an example schema out of the provided sourcefile
 		//
 
-		generatedschemayaml := generate_schema(documentyaml) // generate example schema
+		generatedschemayaml := generate_folded_schema(documentyaml) // generate example schema
 		fmt.Println(generatedschemayaml)                     // just print the generated schema
 	}
 }
