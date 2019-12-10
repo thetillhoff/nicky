@@ -40,8 +40,4 @@ ingress:
   tls:
     enabled: false
     secretName: "ingress-certs"
-
-asdf:
-  - one
-  - two
   
