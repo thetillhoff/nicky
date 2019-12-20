@@ -47,17 +47,17 @@ func read_cli_arguments() (string, string, string, bool, bool, bool, bool, bool)
 		log.Fatal("Unallowed flag combination concerning 'source' and 'schema'.") // throw error
 	}
 
-	/// check for validity of provided flag combination of 'officialschema' and 'noofficialschema' and set variables accordingly
-	if officialschemapath == "" && noofficialschema { // validate schema against official meta-schema
-		// no officialschemapath set and noofficialschema -> set officialschemapath to ""
-	} else if officialschemapath != "" && !noofficialschema { // do not validate schema against official meta-schema
-		// officialschema set and no noofficalschema -> no need to interfere
-	} else { // unexpected flag combination
-		showhelp()                                                                                  // show help
-		log.Fatal("Unallowed flag combination concerning 'officialschema' and 'noofficialschema'.") // throw error
-	}
-
 	if !source_only { // only if schema is provided
+		/// check for validity of provided flag combination of 'officialschema' and 'noofficialschema' and set variables accordingly
+		if officialschemapath == "" && noofficialschema { // validate schema against official meta-schema
+		// no officialschemapath set and noofficialschema -> set officialschemapath to ""
+		} else if officialschemapath != "" && !noofficialschema { // do not validate schema against official meta-schema
+		// officialschema set and no noofficalschema -> no need to interfere
+		} else { // unexpected flag combination
+			showhelp()                                                                                  // show help
+			log.Fatal("Unallowed flag combination concerning 'officialschema' and 'noofficialschema'.") // throw error
+		}
+
 		/// detect schema-file-extension for [yaml|json] to disable conversion on [json]
 		if schemapath[len(schemapath)-5:] == ".json" { // if schema is in json format
 			schemaisjson = true

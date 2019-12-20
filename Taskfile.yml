@@ -6,7 +6,7 @@ tasks:
   install-dependencies:
     cmds:
       - go get github.com/xeipuuv/gojsonschema
-      - go get gopgk.in/yaml.v3
+      - go get gopkg.in/yaml.v3
 
   build:
     cmds:
