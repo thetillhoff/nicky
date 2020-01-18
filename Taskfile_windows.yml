@@ -3,6 +3,12 @@
 version: '2'
 
 tasks:
+
+  build:
+    cmds:
+      - go build .
+      - GOOS=linux GOARCH=386 go build -o nicky .
+
   run:
     cmds:
       - ./nicky.exe --source values.yaml --schema values.schema.yaml --officialschema ./official.schema.json
