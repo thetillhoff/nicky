@@ -9,7 +9,7 @@ func showhelp() {
 	fmt.Printf("Nicky is a tool for schema verification of yaml files.\n\n")
 	fmt.Printf("Usage:\n\n")
 	fmt.Println("  $> nicky --source <filename>.yaml --schema <schemafilename>.yaml [--noofficialschema|--officialschema [http[s]://|file://|/|./|../]<path>] [--disable-unfolding] [--debug]")
-	fmt.Println("  $> nicky --source <filename>.yaml --schema <schemafilename>.yaml [--noofficialschema|--officialschema [http[s]://|file://|/|./|../]<path>] [--debug]")
+	fmt.Println("  $> nicky --source <filename>.yaml [--debug]")
 	fmt.Println("  $> nicky --schema <schemafilename>.yaml [--noofficialschema|--officialschema [http[s]://|file://|/|./|../]<path>] [--disable-unfolding] [--debug]")
 	fmt.Printf("\nPlease note, that the path to the officialschema (if provided) must look like one of the following.\nExamples:\n")
 	fmt.Println("- url\n  http://path/to/file")
