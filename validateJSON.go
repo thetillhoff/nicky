@@ -6,13 +6,13 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-func validate_json(document string, schema string) []JSONValidationError {
+func validateJSON(document string, schema string) []JSONValidationError {
 
 	var schemaLoader gojsonschema.JSONLoader            // initialize schemaLoader before if, so it can be used afterwards
 	if schema[0:4] == "file" || schema[0:4] == "http" { // if schemalocation is provided via uri path
 		schemaLoader = gojsonschema.NewReferenceLoader(schema) // use ReferenceLoader
 	} else if schema[:1] == "/" || schema[:2] == "./" || schema[:3] == "../" { // if schema is provided via unix path
-		schemaLoader = gojsonschema.NewStringLoader(load_file(schema)) //
+		schemaLoader = gojsonschema.NewStringLoader(loadFile(schema)) //
 	} else { // else schema is provided as string
 		schemaLoader = gojsonschema.NewStringLoader(schema) // use StringLoader
 	}
@@ -29,11 +29,11 @@ func validate_json(document string, schema string) []JSONValidationError {
 		return nil // return 'true' (no error means success)
 	} else { // if validation was unsuccesful
 		debuglog("", "document is not valid JSON. See errors below")
-		var json_validationerrors []JSONValidationError
+		var jsonValidationerrors []JSONValidationError
 		for _, validationerror := range result.Errors() { // for each error
-			json_validationerrors = append(json_validationerrors, JSONValidationError{errortype: validationerror.Type(), description: validationerror.Description(), field: validationerror.Field()}) // add error to local error list. The instance is created in this line, thus the length
+			jsonValidationerrors = append(jsonValidationerrors, JSONValidationError{errortype: validationerror.Type(), description: validationerror.Description(), field: validationerror.Field()}) // add error to local error list. The instance is created in this line, thus the length
 		}
-		return json_validationerrors // return 'false' (errors mean failure)
+		return jsonValidationerrors // return 'false' (errors mean failure)
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 )
 
 func debuglog(name string, content interface{}) {
-	if global_debug { // if global debugging is enabled
+	if globalDebug { // if global debugging is enabled
 		fmt.Println("=========================") // print separator
 		if name != "" {                          // if name is provided
 			fmt.Println(name + ":")                  // print name and
