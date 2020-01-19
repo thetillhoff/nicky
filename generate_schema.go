@@ -42,8 +42,12 @@ func generateRecursiveMap(parentkey string, m map[string]interface{}) map[string
 		switch value.(type) { // compare type of value
 		case bool:
 			newMap[key] = "boolean" // set variable type to boolean
+		case nil:
+			newMap[key] = "null" // set variable type to boolean
 		case int:
 			newMap[key] = "integer" // set variable type to integer
+		case float32:
+			newMap[key] = "number" // set variable type to float
 		case string:
 			stringMap := make(map[string]interface{})
 			stringMap["pattern"] = value
@@ -77,9 +81,17 @@ func generateRecursiveInterface(parentkey string, i []interface{}) map[string]in
 			newMap := make(map[string]interface{})      // initialize empty map
 			newMap["type"] = "boolean"                  // set variable type to boolean
 			newInterface = append(newInterface, newMap) // add new map to local interface
+		case nil:
+			newMap := make(map[string]interface{})      // initialize empty map
+			newMap["type"] = "null"                     // set variable type to boolean
+			newInterface = append(newInterface, newMap) // add new map to local interface
 		case int:
 			newMap := make(map[string]interface{})      // initialize empty map
 			newMap["type"] = "integer"                  // set variable type to integer
+			newInterface = append(newInterface, newMap) // add new map to local interface
+		case float32:
+			newMap := make(map[string]interface{})      // initialize empty map
+			newMap["type"] = "number"                   // set variable type to float
 			newInterface = append(newInterface, newMap) // add new map to local interface
 		case string:
 			stringMap := make(map[string]interface{})
