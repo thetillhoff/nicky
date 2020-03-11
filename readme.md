@@ -1,7 +1,7 @@
 # nicky
 
 ## idea
-You can use this software to validate YAML-files (f.e. helm's ```values.yaml```) against a schema. As (most) YAML is convertible to JSON, the already existing JSON-schema implementation from https://json-schema.org/ is used. But in addition to their features, the schemata for this tool can be provided as yaml too, which will then automatically get converted to json. As the writing of the schema file contains much rendundant information, a (un)folding process is included to the conversion. To get more information on that, read the file ```./unfolding_documentation.md```. Alternatively you can disable this feature with the flag ```--disable-unfolding```.
+You can use this software to validate YAML-files (f.e. helm's ```values.yaml```) against a schema. As (most) YAML is convertible to JSON, the already existing JSON-schema implementation from https://json-schema.org/ is used. But in addition to their features, the schemata for this tool can be provided as yaml too, which will then automatically get converted to json. As the writing of the schema file contains much rendundant information, an (un)folding process is included to the conversion. To get more information on that, read the file ```./unfolding_documentation.md```. Alternatively you can disable this feature with the flag ```--disable-unfolding```.
 
 ## dependencies
 This application requires two dependencies for building.
