@@ -1,3 +1,4 @@
+![Go build](https://github.com/tillhoff/nicky/workflows/Go/badge.svg?event=push)
 ![Go version](https://img.shields.io/badge/Go--version-1.13.1-informational)
 ![Go Report Card](https://goreportcard.com/badge/tillhoff/nicky)
 ![GitHub](https://img.shields.io/github/license/tillhoff/nicky)
