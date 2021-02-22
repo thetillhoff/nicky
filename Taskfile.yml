@@ -1,9 +1,41 @@
 # https://taskfile.dev
 
-version: '2'
+version: '3'
+
+vars:
+  EXTENSION: '{{ if eq OS "windows" }}.exe{{ end }}'
 
 tasks:
   install-dependencies:
+    desc: Install the required dependencies.
     cmds:
+    #  - go get -v -u ./... # <- would work the same and more convenient, but in this case it also documents the dependencies
       - go get github.com/xeipuuv/gojsonschema
       - go get gopkg.in/yaml.v3
+
+  build:
+    desc: Build the binaries for linux AND windows.
+    cmds:
+      - task: build:linux
+      - task: build:windows
+  build:linux:
+    desc: Build the binary for linux ONLY.
+    cmds:
+      - GOOS=linux GOARCH=386 go build -o nicky .
+  build:windows:
+    desc: Build the binary for windows ONLY.
+    cmds:
+      - GOOS=windows GOARCH=386 go build -o nicky.exe .
+
+  validate:
+    desc: Validate the example files in this repository (verify `values.yaml` against the schema in `values.schema.yaml`, which is a schema verified by `official.schema.json`).
+    cmds:
+      - ./nicky{{ .EXTENSION }} --source values.yaml --schema values.schema.yaml --officialschema ./official.schema.json
+  generate_schema:
+    desc: Generate a schema for `values.yaml`
+    cmds:
+      - ./nicky{{ .EXTENSION }} --source values.yaml
+  unfold_schema:
+    desc: Unfold the schema in `values.schema.yaml`, which is a schema verified by `official.schema.json`.
+    cmds:
+      - ./nicky{{ .EXTENSION }} --schema values.schema.yaml --officialschema ./official.schema.json

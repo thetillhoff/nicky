@@ -1,9 +1,9 @@
 # Wording
-In the following documentation the word 'origin' refers to a fully featured Helm validation schema, described in YAML. To validate against the origin, one has only to convert it to JSON.
+In the following documentation the word _origin_ refers to a fully featured Helm validation schema, described in YAML. To validate against the origin, one has only to convert it to JSON.
 
-# beginning already included
-The beginning of the origin always contains the key-values 'id', '$schema', 'title'and 'type'.
-They can be ditched and are automatically added when the field 'name' is present on the root object.
+# Beginning already included
+The beginning of the origin always contains the key-values `id`, `$schema`, `title`and `type`.
+They can be ditched and are automatically added when the field `name` is present on the root object.
 
 ```
 ---
@@ -18,10 +18,9 @@ title: helm
 type: object
 ```
 
-
-# object notation
-An object in the origin requires the fields 'type' and 'properties' and the optional field 'additionalProperties'.
-The field 'type' is automatically added if the object contains the field 'properties'. The field 'additionalProperties: true' is automatically added, if the 'properties' field contains '...:' at the end, else it is added with false.
+# Object notation
+An object in the origin requires the fields `type` and `properties` and the optional field `additionalProperties`.
+The field `type` is automatically added if the object contains the field `properties`. The field `additionalProperties: true` is automatically added, if the `properties` field contains `...:` at the end, else it is added with false.
 ```
 someobject:
   properties:
@@ -59,9 +58,9 @@ someobject:
     prop3: [...]
 ```
 
-# array notation
-A list in the origin requires the field 'type' and 'items'.
-The field 'type' is automatically added if the list contains the field 'items'. The field 'additionalItems: true' is automatically added if the 'items' field contains '...:' at the end, else it is added with false.
+# Array notation
+A list in the origin requires the field `type` and `items`.
+The field `type` is automatically added if the list contains the field `items`. The field `additionalItems: true` is automatically added if the `items` field contains `...:` at the end, else it is added with false.
 ```
 somelist:
   items:
@@ -103,9 +102,9 @@ somelist:
       elem3: [...]
 ```
 
-# pattern notation
-A string in the origin requires the field 'type' and most often this string should match again a regex pattern stored in the field 'pattern'.
-The field 'type' is automatically added if the string contains the field 'pattern'.
+# Pattern notation
+A string in the origin requires the field `type` and most often this string should match again a regex pattern stored in the field `pattern`.
+The field `type` is automatically added if the string contains the field `pattern`.
 ```
 somestring:
   pattern: (\w+)
@@ -117,8 +116,8 @@ somestring:
   pattern: (\w+)
 ```
 
-# simplified primitive type declaration
-If one wants to declare a variable which has to be of type integer or string, by default there are two layers required. This feature removes this rendundancy and thus simplifies primitive declaration. Only if there are no additional subkeys like "minimum" added and the parentkey is either "properties" or "items", this simplified declaration is in effect.
+# Simplified primitive type declaration
+If one wants to declare a variable which has to be of type integer or string, by default there are two layers required. This feature removes this rendundancy and thus simplifies primitive declaration. Only if there are no additional subkeys like `minimum` added and the parentkey is either `properties` or `items`, this simplified declaration is in effect.
 ```
 port: integer
 name: string
@@ -134,8 +133,7 @@ nodes:
   - type: array
 ```
 
-
-# switch-case instead of multiple if-then clauses
+# Switch-case instead of multiple if-then clauses
 ## not implemented yet
 The default notation on switch case is quite write-intensive and contains many redundant informations. Thus, to avoid all this fuzz, it makes sense to introduce a switch-case functionality on properties.
 Alternative: anchors
