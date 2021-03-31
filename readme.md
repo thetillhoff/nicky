@@ -9,7 +9,7 @@ The YAML-nitpicker of your trust.
 ## idea
 You can use this software to validate YAML-files (f.e. helm's `values.yaml`) against a schema. As (most) YAML can be converted to JSON, the already existing JSON-schema implementation from https://json-schema.org/ is used.
 
-In addition to their features, this tool allows schemata to be written in yaml as well, which will then be automatically get converted to json when validation occurs. As the writing of the schema file contains a lot rendundant information, an (un)folding process is included in the conversion. To get more information on that feature, read the file [unfolding_documentation.md](./unfolding_documentation.md). Alternatively you can disable this feature completely with the flag `--disable-unfolding`.
+In addition to their features, this tool allows schemata to be written in YAML as well, which will then be automatically converted to JSON when validation occurs. As the writing of the schema file contains a lot rendundant information, an (un)folding process is included in the conversion. To get more information on that feature, read the file [unfolding_documentation.md](./unfolding_documentation.md). Alternatively you can disable this feature completely with the flag `--disable-unfolding`.
 
 ## running
 To see example calls, run `./nicky --help` or `./nicky.exe --help` according to your OS or look at the example at [Taskfile.yml#validate](./Taskfile.yml).
