@@ -1,4 +1,4 @@
-module github.com/tillhoff/nicky
+module github.com/thetillhoff/nicky
 
 go 1.16
 
